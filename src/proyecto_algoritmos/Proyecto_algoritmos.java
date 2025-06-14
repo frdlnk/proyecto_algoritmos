@@ -12,7 +12,7 @@ public class Proyecto_algoritmos {
 
    
     public static void main(String[] args) {
-        System.out.println("Hello world");
+        System.out.println("Hello world Isaac prueba");
     }
     
 }
