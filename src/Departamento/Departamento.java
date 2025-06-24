@@ -13,9 +13,9 @@ public class Departamento {
     String nombreDepartamento;
     Departamento departamentoPadre;
     int cantidadEmpleados;
-    int presupuesto;
+    double presupuesto;
 
-    public Departamento(int code, String nombreDepartamento, Departamento departamentoPadre, int cantidadEmpleados, int presupuesto) {
+    public Departamento(int code, String nombreDepartamento, Departamento departamentoPadre, int cantidadEmpleados, double presupuesto) {
         this.code = code;
         this.nombreDepartamento = nombreDepartamento;
         this.departamentoPadre = departamentoPadre;
@@ -58,11 +58,11 @@ public class Departamento {
         this.cantidadEmpleados = cantidadEmpleados;
     }
 
-    public int getPresupuesto() {
+    public double getPresupuesto() {
         return presupuesto;
     }
 
-    public void setPresupuesto(int presupuesto) {
+    public void setPresupuesto(double presupuesto) {
         this.presupuesto = presupuesto;
     }
 

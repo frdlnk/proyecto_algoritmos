@@ -31,7 +31,8 @@ public class FileHandler {
                 String nombreDepartamento = parts[1].trim();
                 int departamentoPadreCode = Integer.parseInt(parts[2].trim());
                 int cantidadEmpleados = Integer.parseInt(parts[3].trim());
-                int presupuesto = Integer.parseInt(parts[4].trim());
+                double presupuesto = Double.parseDouble(parts[4].trim().replace(",", "").replace(" ", ""));
+
 
                 Departamento departamentoPadre = findDepartamentoByCode(departamentos, departamentoPadreCode);
 

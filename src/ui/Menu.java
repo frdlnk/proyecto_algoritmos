@@ -1,9 +1,13 @@
+package ui;
+
 
 import javax.swing.JOptionPane;
 
 public class Menu {
 
     private static boolean salir = false;
+    
+    private static LoadDepartments loadDepartments = new LoadDepartments();
     
     public static void startMenu() {
     
@@ -31,7 +35,7 @@ public class Menu {
             } else {
                 switch (seleccion.charAt(0)) {
                     case '1':
-                        JOptionPane.showMessageDialog(null, "Estás en: Cargar departamentos de un archivo");
+                           loadDepartments.loadDepartmentsFromFile();
                         break;
                     case '2':
                         JOptionPane.showMessageDialog(null, "Estás en: Agregar un departamento");
