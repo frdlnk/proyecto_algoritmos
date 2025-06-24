@@ -1,0 +1,12 @@
+0,Grupo Empresarial Mayor,0,0,0
+1,Investigación y Desarrollo,0,25,500000.00
+2,Recursos Humanos,0,10,200000.00
+3,Finanzas,0,8,300000.00
+11,Tecnología,1,15,250000.00
+12,Innovación,1,10,150000.00
+21,Reclutamiento,2,5,80000.00
+22,Capacitación,2,5,60000.00
+31,Contabilidad,3,5,120000.00
+32,Auditoría,3,3,100000.00
+111,Sistemas,11,6,100000.00
+112,Desarrollo de Software,11,12,220000.00
