@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  */
 public class EliminarDepartamento {
     
-    ArbolOrganizacional<Departamento> arbolDepartamentos = new ArbolOrganizacional<>();
+    ArbolOrganizacional<Departamento> arbolDepartamentos =  LoadDepartments.getInstance().getArbolOrganizacional();
 
     public void eliminarDep(){
          try {

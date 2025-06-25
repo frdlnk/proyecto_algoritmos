@@ -8,8 +8,10 @@ public class Menu {
     private static final LoadDepartments loadDepartments = LoadDepartments.getInstance();
     private static final JerarquiaDepartamentosGUI departamentosJerarquia = new JerarquiaDepartamentosGUI();
     private static final EliminarDepartamento eliminarDepartamento = new EliminarDepartamento();
+    private static final AddDepartment agregarDepartamento =  new AddDepartment();
     
-    public static void startMenu() {
+    
+    public static void startMenu() throws Exception {
         while (!salir) {
             String[] opciones = {
                 "1. Cargar departamentos de un archivo",
@@ -41,9 +43,13 @@ public class Menu {
                     break;
 
                 case '2':
+                    agregarDepartamento.addDep();
+                    break;
+                    
                 case '3':
                     eliminarDepartamento.eliminarDep();
                     break;
+                    
                 case '4':
                     JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada.");
                     break;
@@ -57,7 +63,7 @@ public class Menu {
                     break;
 
                 default:
-                    JOptionPane.showMessageDialog(null, "Opción no válida.");
+                    JOptionPane.showMessageDialog(null, "Opcion no valida.");
                     break;
             }
         }
