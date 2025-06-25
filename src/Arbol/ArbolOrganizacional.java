@@ -96,5 +96,19 @@ public class ArbolOrganizacional<T extends Comparable<T>> {
         }
     }
      
+      public void recorrer() {
+        recorrerRecursivo(raiz, 0);
+    }
+
+    private void recorrerRecursivo(Nodo<T> actual, int nivel) {
+        if (actual == null) return;
+        for (int i = 0; i < nivel; i++) System.out.print("\t");
+        System.out.println(actual.getValor());
+        for (int i = 0; i < actual.getHijos().tamanno(); i++) {
+            recorrerRecursivo(actual.getHijos().obtener(i), nivel + 1);
+        }
+    }
+     
+     
      
 }
