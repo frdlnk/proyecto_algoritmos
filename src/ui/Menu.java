@@ -7,7 +7,8 @@ public class Menu {
     private static boolean salir = false;
     private static final LoadDepartments loadDepartments = LoadDepartments.getInstance();
     private static final JerarquiaDepartamentosGUI departamentosJerarquia = new JerarquiaDepartamentosGUI();
-
+    private static final EliminarDepartamento eliminarDepartamento = new EliminarDepartamento();
+    
     public static void startMenu() {
         while (!salir) {
             String[] opciones = {
@@ -41,6 +42,8 @@ public class Menu {
 
                 case '2':
                 case '3':
+                    eliminarDepartamento.eliminarDep();
+                    break;
                 case '4':
                     JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada.");
                     break;

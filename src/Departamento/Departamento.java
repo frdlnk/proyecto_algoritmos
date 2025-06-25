@@ -104,7 +104,6 @@ public class Departamento implements Comparable<Departamento> {
         return Integer.compare(this.code, otro.code);
     }
 
-    //ISAAC
     private List<Departamento> hijos = new ArrayList<>();
 
     public void agregarHijo(Departamento hijo) {
