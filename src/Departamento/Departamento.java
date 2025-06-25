@@ -18,7 +18,7 @@ public class Departamento implements Comparable<Departamento> {
     private double presupuesto;
 
     public Departamento(int code, String nombreDepartamento, Departamento departamentoPadre, int cantidadEmpleados, double presupuesto) {
-        if (code <= 0) throw new IllegalArgumentException("Código debe ser positivo.");
+        if (code < 0) throw new IllegalArgumentException("Código debe ser positivo.");
         if (nombreDepartamento == null || nombreDepartamento.trim().isEmpty()) {
             throw new IllegalArgumentException("Nombre no puede estar vacío.");
         }
