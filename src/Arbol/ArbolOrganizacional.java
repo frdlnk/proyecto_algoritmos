@@ -16,12 +16,12 @@ public class ArbolOrganizacional<T extends Comparable<T>> {
         return raiz == null;
     }
 
-    public void insertar(Departamento departamento, int codigoPadre) throws Exception {
+    public void insertar(Departamento departamento, Departamento padre) throws Exception {
         Nodo<Departamento> nuevoNodo = new Nodo<>(departamento);
 
         if (isEmpty()) {
 
-            if (codigoPadre == 0) {
+            if (padre == null) {
                 raiz = nuevoNodo;
                 size++;
             } else {
@@ -29,21 +29,20 @@ public class ArbolOrganizacional<T extends Comparable<T>> {
             }
 
         } else {
-            insertarRecursivo(raiz, nuevoNodo, codigoPadre);
+            insertarRecursivo(raiz, nuevoNodo, padre!=null ? padre.getCode():0);
             size++;
         }
     }
 
     private void insertarRecursivo(Nodo<Departamento> actual, Nodo<Departamento> nuevo, int codigoPadre) {
-        if (actual.getValor().getCode() == codigoPadre) {
-            actual.getValor().agregarHijo(nuevo.getValor());
-            actual.agregarHijo(nuevo);
-        }
-        for (int i = 0; i < actual.getHijos().tamanno(); i++) { //hasta el tamano de la lista enlazada
-            Nodo<Departamento> hijo = actual.getHijos().obtener(i);
-            insertarRecursivo(hijo, nuevo, codigoPadre);
-        }
+    if (actual.getValor().getCode() == codigoPadre) {
+        actual.agregarHijo(nuevo);  
     }
+    for (int i = 0; i < actual.getHijos().tamanno(); i++) {
+        Nodo<Departamento> hijo = actual.getHijos().obtener(i);
+        insertarRecursivo(hijo, nuevo, codigoPadre);
+    }
+}
 
     public Nodo<Departamento> buscar(int codigo) {
         return buscarRecursivo(raiz, codigo);

@@ -18,7 +18,6 @@ public class JerarquiaDepartamentosGUI {
         try {
             int code = Integer.parseInt(inputCode);
 
-            // Obtener el departamento con ese código desde la lista cargada
             Departamento departamentoRaiz = null;
             for (Departamento d : LoadDepartments.getInstance().getDepartamentos()) {
                 if (d.getCode() == code) {
@@ -32,7 +31,6 @@ public class JerarquiaDepartamentosGUI {
                 return;
             }
 
-            // Obtener árbol y buscar el nodo raíz
             ArbolOrganizacional<Departamento> arbol = LoadDepartments.getInstance().getArbolOrganizacional();
             Nodo<Departamento> nodoRaiz = arbol.buscar(departamentoRaiz.getCode()); //SE AGREGO EL GETCODE
             if (nodoRaiz == null) {
@@ -40,15 +38,17 @@ public class JerarquiaDepartamentosGUI {
                 return;
             }
 
-            // Construir y mostrar el JTree
             JTree tree = new JTree(construirTreeNode(nodoRaiz));
             tree.setShowsRootHandles(true);
 
-            JFrame frame = new JFrame("Jerarquía de Departamentos");
-            frame.add(new JScrollPane(tree));
-            frame.setSize(400, 500);
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
+            JDialog dialog = new JDialog();
+            dialog.setTitle("Jerarquía de Departamentos");
+            dialog.setModal(true);
+            dialog.add(new JScrollPane(tree));
+            dialog.setSize(400, 500);
+            dialog.setLocationRelativeTo(null);
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Código inválido. Ingrese un número.");

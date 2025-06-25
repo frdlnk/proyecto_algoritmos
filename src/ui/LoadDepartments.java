@@ -15,7 +15,6 @@ public class LoadDepartments {
     private List<Departamento> departamentos;
     private ArbolOrganizacional<Departamento> arbolDepartamentos = new ArbolOrganizacional<>();
 
-
     private LoadDepartments() {
     }
 
@@ -57,32 +56,40 @@ public class LoadDepartments {
             return;
         }
 
-        // Insertar raíz
+        Map<Integer, Departamento> mapaDepartamentos = new HashMap<>();
         for (Departamento d : departamentos) {
-            if (d.getDepartamentoPadre() == null) {
-                try {
-                    arbolDepartamentos.insertar(d, 0);
-                } catch (Exception e) {
-                    mostrarMensajeError("Error al insertar raíz: " + e.getMessage());
-                    return;
-                }
-                break;
+            mapaDepartamentos.put(d.getCode(), d);
+        }
+
+        for (Departamento d : departamentos) {
+            if (d.getDepartamentoPadre() != null) {
+                int codigoPadre = d.getDepartamentoPadre().getCode();
+                Departamento padreReal = mapaDepartamentos.get(codigoPadre);
+                d.setDepartamentoPadre(padreReal);
             }
         }
 
-        // Insertar nodos hijos
         for (Departamento d : departamentos) {
-            if (d.getDepartamentoPadre() == null) {
-                continue;
-            }
-
             try {
-                arbolDepartamentos.insertar(d, d.getDepartamentoPadre().getCode()); //SE AGREGO EL GETCODE
+                Departamento padre = d.getDepartamentoPadre();
+
+                if (padre != null && padre.equals(d)) {
+                    mostrarMensajeError("Error: Departamento " + d.getCode()
+                            + " no puede ser padre de sí mismo");
+                    continue;
+                }
+
+                arbolDepartamentos.insertar(d, padre);
             } catch (Exception e) {
                 mostrarMensajeError("Error al insertar '" + d.getNombreDepartamento()
-                        + "' con padre '" + d.getDepartamentoPadre().getNombreDepartamento() + "': " + e.getMessage());
+                        + "' (Código: " + d.getCode() + "): "
+                        + e.getMessage());
+                e.printStackTrace();
             }
         }
+
+        mostrarMensaje("Árbol organizacional construido exitosamente. Total nodos: "
+                + arbolDepartamentos.size());
     }
 
     private File seleccionarArchivo() {

@@ -8,6 +8,8 @@ package Departamento;
  *
  * @author Isaac
  */
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Departamento implements Comparable<Departamento> {
@@ -103,9 +105,24 @@ public class Departamento implements Comparable<Departamento> {
     }
 
     //ISAAC
-    public void agregarHijo(Departamento valor) {
-        
+    private List<Departamento> hijos = new ArrayList<>();
+
+    public void agregarHijo(Departamento hijo) {
+        if (hijo == null) {
+            throw new IllegalArgumentException("El departamento hijo no puede ser nulo");
+        }
+        if (hijo.equals(this)) {
+            throw new IllegalArgumentException("Un departamento no puede ser hijo de sí mismo");
+        }
+        if (hijos.contains(hijo)) {
+            throw new IllegalArgumentException("Este departamento ya es hijo");
+        }
+
+        hijo.setDepartamentoPadre(this);
+        hijos.add(hijo);
     }
-    
+    public List<Departamento> getHijos() {
+        return new ArrayList<>(hijos);  
+    }
     
 }
