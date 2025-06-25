@@ -29,20 +29,20 @@ public class ArbolOrganizacional<T extends Comparable<T>> {
             }
 
         } else {
-            insertarRecursivo(raiz, nuevoNodo, padre!=null ? padre.getCode():0);
+            insertarRecursivo(raiz, nuevoNodo, padre != null ? padre.getCode() : 0);
             size++;
         }
     }
 
     private void insertarRecursivo(Nodo<Departamento> actual, Nodo<Departamento> nuevo, int codigoPadre) {
-    if (actual.getValor().getCode() == codigoPadre) {
-        actual.agregarHijo(nuevo);  
+        if (actual.getValor().getCode() == codigoPadre) {
+            actual.agregarHijo(nuevo);
+        }
+        for (int i = 0; i < actual.getHijos().tamanno(); i++) {
+            Nodo<Departamento> hijo = actual.getHijos().obtener(i);
+            insertarRecursivo(hijo, nuevo, codigoPadre);
+        }
     }
-    for (int i = 0; i < actual.getHijos().tamanno(); i++) {
-        Nodo<Departamento> hijo = actual.getHijos().obtener(i);
-        insertarRecursivo(hijo, nuevo, codigoPadre);
-    }
-}
 
     public Nodo<Departamento> buscar(int codigo) {
         return buscarRecursivo(raiz, codigo);
@@ -137,5 +137,29 @@ public class ArbolOrganizacional<T extends Comparable<T>> {
             recorrerRecursivo(actual.getHijos().obtener(i), nivel + 1);
         }
     }
+// Para buscar departamento por codigo
 
+    public Departamento buscarPorCodigo(int codigo) {
+        Nodo<Departamento> nodo = buscarNodoPorCodigo(raiz, codigo);
+        return nodo != null ? nodo.getValor() : null;
+    }
+
+    private Nodo<Departamento> buscarNodoPorCodigo(Nodo<Departamento> nodo, int codigo) {
+        if (nodo == null) {
+            return null;
+        }
+
+        if (nodo.getValor().getCode() == codigo) {
+            return nodo;
+        }
+
+        for (int i = 0; i < nodo.getHijos().tamanno(); i++) {
+            Nodo<Departamento> encontrado = buscarNodoPorCodigo(nodo.getHijos().obtener(i), codigo);
+            if (encontrado != null) {
+                return encontrado;
+            }
+        }
+
+        return null;
+    }
 }

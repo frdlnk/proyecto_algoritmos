@@ -9,7 +9,7 @@ public class Menu {
     private static final JerarquiaDepartamentosGUI departamentosJerarquia = new JerarquiaDepartamentosGUI();
     private static final EliminarDepartamento eliminarDepartamento = new EliminarDepartamento();
     private static final AddDepartment agregarDepartamento =  new AddDepartment();
-    
+    private static final ConsultarDepartamentos consultarDepartamento= new ConsultarDepartamentos();
     
     public static void startMenu() throws Exception {
         while (!salir) {
@@ -51,7 +51,8 @@ public class Menu {
                     break;
                     
                 case '4':
-                    JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada.");
+                    JOptionPane.showMessageDialog(null, "Consultar departamentos");
+                    consultarDepartamento.consultarDepartamento(loadDepartments.getArbolOrganizacional());
                     break;
 
                 case '5':
