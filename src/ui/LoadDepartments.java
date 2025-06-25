@@ -1,14 +1,34 @@
 package ui;
 
+import Arbol.ArbolOrganizacional;
 import Departamento.Departamento;
 import utils.FileHandler;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 public class LoadDepartments {
+
+    private static LoadDepartments instance;
+    private List<Departamento> departamentos;
+    private ArbolOrganizacional<Departamento> arbolDepartamentos = new ArbolOrganizacional<>();
+
+
+    private LoadDepartments() {
+    }
+
+    public static LoadDepartments getInstance() {
+        if (instance == null) {
+            instance = new LoadDepartments();
+        }
+        return instance;
+    }
+
+    public void setArbolOrganizacional(ArbolOrganizacional<Departamento> arbol) {
+        this.arbolDepartamentos = arbol;
+    }
 
     public void loadDepartmentsFromFile() {
         File selectedFile = seleccionarArchivo();
@@ -18,40 +38,67 @@ public class LoadDepartments {
             return;
         }
 
-        List<Departamento> departamentos = cargarDepartamentosDesdeArchivo(selectedFile.getAbsolutePath());
+        departamentos = cargarDepartamentosDesdeArchivo(selectedFile.getAbsolutePath());
 
         if (departamentos != null) {
-            mostrarDepartamentos(departamentos);
             mostrarMensaje("Departamentos cargados exitosamente.");
+            insertarEnArbol();
+        }
+    }
+
+    private void insertarEnArbol() {
+        if (arbolDepartamentos == null) {
+            mostrarMensajeError("Árbol organizacional no ha sido inicializado.");
+            return;
+        }
+
+        if (departamentos == null || departamentos.isEmpty()) {
+            mostrarMensajeError("No hay departamentos para insertar.");
+            return;
+        }
+
+        // Insertar raíz
+        for (Departamento d : departamentos) {
+            if (d.getDepartamentoPadre() == null) {
+                try {
+                    arbolDepartamentos.insertar(d, null);
+                } catch (Exception e) {
+                    mostrarMensajeError("Error al insertar raíz: " + e.getMessage());
+                    return;
+                }
+                break;
+            }
+        }
+
+        // Insertar nodos hijos
+        for (Departamento d : departamentos) {
+            if (d.getDepartamentoPadre() == null) {
+                continue;
+            }
+
+            try {
+                arbolDepartamentos.insertar(d, d.getDepartamentoPadre());
+            } catch (Exception e) {
+                mostrarMensajeError("Error al insertar '" + d.getNombreDepartamento()
+                        + "' con padre '" + d.getDepartamentoPadre().getNombreDepartamento() + "': " + e.getMessage());
+            }
         }
     }
 
     private File seleccionarArchivo() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleccione el archivo de departamentos");
-
         int seleccionUsuario = fileChooser.showOpenDialog(null);
-        if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
-            return fileChooser.getSelectedFile();
-        }
-
-        return null;
+        return (seleccionUsuario == JFileChooser.APPROVE_OPTION) ? fileChooser.getSelectedFile() : null;
     }
 
     private List<Departamento> cargarDepartamentosDesdeArchivo(String rutaArchivo) {
         FileHandler fileHandler = new FileHandler(rutaArchivo);
-
         try {
             return fileHandler.getDepartamentosFromFile();
         } catch (IOException | NumberFormatException ex) {
             mostrarMensajeError("Error al cargar el archivo: " + ex.getMessage());
             return null;
-        }
-    }
-
-    private void mostrarDepartamentos(List<Departamento> departamentos) {
-        for (Departamento departamento : departamentos) {
-            System.out.println(departamento);
         }
     }
 
@@ -62,4 +109,13 @@ public class LoadDepartments {
     private void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
+    }
+
+    public ArbolOrganizacional<Departamento> getArbolOrganizacional() {
+        return arbolDepartamentos;
+    }
+
 }

@@ -1,20 +1,15 @@
 package ui;
 
-
-import Arbol.ArbolOrganizacional;
-import Departamento.Departamento;
 import javax.swing.JOptionPane;
 
 public class Menu {
 
     private static boolean salir = false;
-    
-    private static LoadDepartments loadDepartments = new LoadDepartments();
-        private static ArbolOrganizacional<Departamento> arbolDepartamentos = new ArbolOrganizacional<>();
-    private static JerarquiaDepartamentosGUI departamentosJerarquia= new JerarquiaDepartamentosGUI(arbolDepartamentos);
+    private static final LoadDepartments loadDepartments = LoadDepartments.getInstance();
+    private static final JerarquiaDepartamentosGUI departamentosJerarquia = new JerarquiaDepartamentosGUI();
+
     public static void startMenu() {
-    
-         while (!salir) {
+        while (!salir) {
             String[] opciones = {
                 "1. Cargar departamentos de un archivo",
                 "2. Agregar un departamento",
@@ -33,43 +28,35 @@ public class Menu {
                     opciones,
                     opciones[0]);
 
-            if (seleccion == null) {
+            if (seleccion == null || seleccion.startsWith("6")) {
                 salir = true;
-            } else {
-                switch (seleccion.charAt(0)) {
-                    case '1':
-                           loadDepartments.loadDepartmentsFromFile();
-                        break;
-                    case '2':
-                        JOptionPane.showMessageDialog(null, "Estás en: Agregar un departamento");
-                        break;
-                    case '3':
-                        JOptionPane.showMessageDialog(null, "Estás en: Eliminar un departamento");
-                        break;
-                    case '4':
-                        JOptionPane.showMessageDialog(null, "Estás en: Consultar los datos de un departamento");
-                        break;
-                    case '5':
-                        JOptionPane.showMessageDialog(null, "Estás en: Mostrar la jerarquía de un departamento");
+                JOptionPane.showMessageDialog(null, "Saliendo del programa...");
+                continue;
+            }
+
+            switch (seleccion.charAt(0)) {
+                case '1':
+                    loadDepartments.loadDepartmentsFromFile();
+                    break;
+
+                case '2':
+                case '3':
+                case '4':
+                    JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada.");
+                    break;
+
+                case '5':
+                    if (loadDepartments.getDepartamentos() == null || loadDepartments.getDepartamentos().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Debe cargar primero un archivo de departamentos.");
+                    } else {
                         departamentosJerarquia.mostrarJerarquia();
-                        break;
-                    case '6':
-                        salir = true;
-                        JOptionPane.showMessageDialog(null, "Saliendo del programa...");
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, "Opción no válida.");
-                        break;
-                }
+                    }
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida.");
+                    break;
             }
         }
-    
-        
     }
 }
-
-
-
- 
-
-    
