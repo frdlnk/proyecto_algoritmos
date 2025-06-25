@@ -104,7 +104,7 @@ public class Departamento implements Comparable<Departamento> {
 
     //ISAAC
     public void agregarHijo(Departamento valor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
     
     

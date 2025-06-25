@@ -61,7 +61,7 @@ public class LoadDepartments {
         for (Departamento d : departamentos) {
             if (d.getDepartamentoPadre() == null) {
                 try {
-                    arbolDepartamentos.insertar(d, null);
+                    arbolDepartamentos.insertar(d, 0);
                 } catch (Exception e) {
                     mostrarMensajeError("Error al insertar raíz: " + e.getMessage());
                     return;
@@ -77,7 +77,7 @@ public class LoadDepartments {
             }
 
             try {
-                arbolDepartamentos.insertar(d, d.getDepartamentoPadre());
+                arbolDepartamentos.insertar(d, d.getDepartamentoPadre().getCode()); //SE AGREGO EL GETCODE
             } catch (Exception e) {
                 mostrarMensajeError("Error al insertar '" + d.getNombreDepartamento()
                         + "' con padre '" + d.getDepartamentoPadre().getNombreDepartamento() + "': " + e.getMessage());

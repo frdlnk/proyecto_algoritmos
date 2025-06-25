@@ -34,7 +34,7 @@ public class JerarquiaDepartamentosGUI {
 
             // Obtener árbol y buscar el nodo raíz
             ArbolOrganizacional<Departamento> arbol = LoadDepartments.getInstance().getArbolOrganizacional();
-            Nodo<Departamento> nodoRaiz = arbol.buscar(departamentoRaiz);
+            Nodo<Departamento> nodoRaiz = arbol.buscar(departamentoRaiz.getCode()); //SE AGREGO EL GETCODE
             if (nodoRaiz == null) {
                 JOptionPane.showMessageDialog(null, "Nodo raíz no encontrado en el árbol.");
                 return;
