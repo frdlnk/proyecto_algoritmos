@@ -11,6 +11,7 @@ package Departamento;
 import java.util.Objects;
 
 public class Departamento implements Comparable<Departamento> {
+
     private final int code;
     private final String nombreDepartamento;
     private Departamento departamentoPadre;
@@ -18,7 +19,9 @@ public class Departamento implements Comparable<Departamento> {
     private double presupuesto;
 
     public Departamento(int code, String nombreDepartamento, Departamento departamentoPadre, int cantidadEmpleados, double presupuesto) {
-        if (code < 0) throw new IllegalArgumentException("Código debe ser positivo.");
+        if (code < 0) {
+            throw new IllegalArgumentException("Código debe ser positivo.");
+        }
         if (nombreDepartamento == null || nombreDepartamento.trim().isEmpty()) {
             throw new IllegalArgumentException("Nombre no puede estar vacío.");
         }
@@ -29,14 +32,26 @@ public class Departamento implements Comparable<Departamento> {
         this.presupuesto = Math.max(0.0, presupuesto);
     }
 
-    
-    public int getCode() { return code; }
-    public String getNombreDepartamento() { return nombreDepartamento; }
-    public Departamento getDepartamentoPadre() { return departamentoPadre; }
-    public int getCantidadEmpleados() { return cantidadEmpleados; }
-    public double getPresupuesto() { return presupuesto; }
+    public int getCode() {
+        return code;
+    }
 
-    
+    public String getNombreDepartamento() {
+        return nombreDepartamento;
+    }
+
+    public Departamento getDepartamentoPadre() {
+        return departamentoPadre;
+    }
+
+    public int getCantidadEmpleados() {
+        return cantidadEmpleados;
+    }
+
+    public double getPresupuesto() {
+        return presupuesto;
+    }
+
     public void setDepartamentoPadre(Departamento departamentoPadre) {
         this.departamentoPadre = departamentoPadre;
     }
@@ -49,11 +64,14 @@ public class Departamento implements Comparable<Departamento> {
         this.presupuesto = Math.max(0.0, presupuesto);
     }
 
-    
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Departamento that = (Departamento) obj;
         return this.code == that.code;
     }
@@ -63,19 +81,17 @@ public class Departamento implements Comparable<Departamento> {
         return Objects.hash(code);
     }
 
-  
     @Override
     public String toString() {
         return String.format(
-            "Departamento[code=%d, nombre=%s, padre=%s, empleados=%d, presupuesto=%.2f]",
-            code,
-            nombreDepartamento,
-            (departamentoPadre != null ? departamentoPadre.getNombreDepartamento() : "Ninguno"),
-            cantidadEmpleados,
-            presupuesto
+                "Departamento[code=%d, nombre=%s, padre=%s, empleados=%d, presupuesto=%.2f]",
+                code,
+                nombreDepartamento,
+                (departamentoPadre != null ? departamentoPadre.getNombreDepartamento() : "Ninguno"),
+                cantidadEmpleados,
+                presupuesto
         );
     }
-
 
     public boolean tieneCodigo(int codigoBuscado) {
         return this.code == codigoBuscado;
@@ -83,6 +99,13 @@ public class Departamento implements Comparable<Departamento> {
 
     @Override
     public int compareTo(Departamento otro) {
-         return Integer.compare(this.code, otro.code);
+        return Integer.compare(this.code, otro.code);
     }
+
+    //ISAAC
+    public void agregarHijo(Departamento valor) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
 }
