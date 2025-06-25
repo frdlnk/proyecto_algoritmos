@@ -1,6 +1,8 @@
 package ui;
 
 
+import Arbol.ArbolOrganizacional;
+import Departamento.Departamento;
 import javax.swing.JOptionPane;
 
 public class Menu {
@@ -8,7 +10,8 @@ public class Menu {
     private static boolean salir = false;
     
     private static LoadDepartments loadDepartments = new LoadDepartments();
-    
+        private static ArbolOrganizacional<Departamento> arbolDepartamentos = new ArbolOrganizacional<>();
+    private static JerarquiaDepartamentosGUI departamentosJerarquia= new JerarquiaDepartamentosGUI(arbolDepartamentos);
     public static void startMenu() {
     
          while (!salir) {
@@ -48,6 +51,7 @@ public class Menu {
                         break;
                     case '5':
                         JOptionPane.showMessageDialog(null, "Estás en: Mostrar la jerarquía de un departamento");
+                        departamentosJerarquia.mostrarJerarquia();
                         break;
                     case '6':
                         salir = true;
@@ -63,3 +67,9 @@ public class Menu {
         
     }
 }
+
+
+
+ 
+
+    

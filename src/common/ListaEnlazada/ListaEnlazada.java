@@ -102,11 +102,7 @@ public class ListaEnlazada<T> {
         return eliminado.getDato();
     }
     
-    // Eliminar el último elemento
-    // Si la lista está vacía retorna null
-    // Sino debe recorrer hasta el penúltimo elemento y buscar este 
-    //   para retornar el siguiente
-    // El fin pasa a ser el penúltimo
+
     public T eliminarFin() {
         // Si la lista está vacía retorna null
         if (isEmpty()) {
@@ -142,39 +138,29 @@ public class ListaEnlazada<T> {
     @Override
     public String toString() {
         String hilera = "";
-        // Concatenar el dato separado por salto de línea \n
-        // Obtenemos el valor actual en una variable temporal
-        // En un ciclo preguntamos si tiene valor
-        // Dentro del ciclo obtenemos el siguiente valor
+  
         Nodo<T> temp = this.inicio;
         while (temp != null) {
             hilera += temp.getDato() + "\n";
             temp = temp.getSiguiente();
         }
         
-        // Recorrido con for
-//        for (Nodo<T> temp2 = this.inicio;       // Declaración
-//                temp2 != null;                  // Condición de parada
-//                temp2 = temp2.getSiguiente()) { // Incremento
-//            hilera += temp2.getDato() + "\n";
+       
 //        }
 
         return hilera;
     }
     
-    // Obtiene el elemento en la posicion indicada
-    // Si el indice es menor a 0 o mayor o igual a la cantidad 
-    //  retorna null
-    // Variable contador para comparar la posición
+    
     public T obtener(int indice) {
         // Valida que el indice esté en los límites [0,...,cantidad[
         if ((indice < 0) || (indice >= cantidad)) {
             return null;
         }
-        // Recorre los elementos incrementando la posición
+       
         Nodo<T> nodo = inicio;
         for (int i = 0; i < cantidad; i++) {
-            // Si el contador es igual indice retorna el valor
+            
             if (i == indice) {
                 return nodo.getDato();
             }
@@ -183,8 +169,7 @@ public class ListaEnlazada<T> {
         return null;
     }
     
-    // Obtener posición por elemento (indexOf)
-    // Si el elemento no existe retorna -1
+
     public int indexOf(T dato) {
         int indice = 0;
         Nodo nodo = inicio;
@@ -198,22 +183,13 @@ public class ListaEnlazada<T> {
         return -1;
     }
     
-    // Valida si un elemento existe (contains)
-    // Si no existe retorna false
-    // Reutiliza el llamado a indexOf
-    //     si indexOf != -1  true
-    //     sino false
+   
     public boolean contains(T dato) {
         return this.indexOf(dato) != -1;
-        // if (this.indexOf(dato) != -1) {
-        //     return true;
-        // }
-        // return false;
+     
     }
     
-    // Modifica el contenido de una posición
-    // Si el indice es menor a 0 o mayor o igual a la cantidad 
-    //  retorna null
+ 
     public T set(int indice, T dato) {
         // Valida que el indice esté en los límites [0,...,cantidad[
         if ((indice < 0) || (indice >= cantidad)) {
@@ -232,31 +208,26 @@ public class ListaEnlazada<T> {
         return null;
     }
     
-    // Elimina el elemento de la posición indicada
-    // Si el indice es menor a 0 o mayor o igual a la cantidad 
-    //  retorna null
-    // Si la lista está vacía retorna null
-    // Retorna el valor eliminado
+ 
+   
     public T eliminar(int indice) {
-        // Verifica si lista está vacía
+      
         if (isEmpty()) {
             return null;
         }
-        // Valida que el indice esté en los límites [0,...,cantidad[
+      
         if ((indice < 0) || (indice >= cantidad)) {
             return null;
         }
-        // Si el indice es 0 llama a eliminarInicio
+       
         if (indice == 0) {
             return eliminarInicio();
         }
-        // Si el indice es el último elemento (cantidad - 1) llama a
-        //  eliminarFin
+      
         if (indice == (cantidad - 1)) {
             return eliminarFin();
         }
-        // Recorre desde la posición 1 al penúltimo (cantidad - 2)
-        // Inicializa el nodo en el siguiente del inicio
+        
         Nodo<T> nodo = inicio;
         for (int i = 1; i < cantidad - 1; i++) {
             if (i == indice) {

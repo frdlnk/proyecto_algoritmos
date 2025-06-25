@@ -8,68 +8,81 @@ package Departamento;
  *
  * @author Isaac
  */
-public class Departamento {
-    int code;
-    String nombreDepartamento;
-    Departamento departamentoPadre;
-    int cantidadEmpleados;
-    double presupuesto;
+import java.util.Objects;
+
+public class Departamento implements Comparable<Departamento> {
+    private final int code;
+    private final String nombreDepartamento;
+    private Departamento departamentoPadre;
+    private int cantidadEmpleados;
+    private double presupuesto;
 
     public Departamento(int code, String nombreDepartamento, Departamento departamentoPadre, int cantidadEmpleados, double presupuesto) {
+        if (code <= 0) throw new IllegalArgumentException("Código debe ser positivo.");
+        if (nombreDepartamento == null || nombreDepartamento.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nombre no puede estar vacío.");
+        }
         this.code = code;
-        this.nombreDepartamento = nombreDepartamento;
+        this.nombreDepartamento = nombreDepartamento.trim();
         this.departamentoPadre = departamentoPadre;
-        this.cantidadEmpleados = cantidadEmpleados;
-        this.presupuesto = presupuesto;
+        this.cantidadEmpleados = Math.max(0, cantidadEmpleados);
+        this.presupuesto = Math.max(0.0, presupuesto);
     }
 
-    public Departamento() {
-    }
+    
+    public int getCode() { return code; }
+    public String getNombreDepartamento() { return nombreDepartamento; }
+    public Departamento getDepartamentoPadre() { return departamentoPadre; }
+    public int getCantidadEmpleados() { return cantidadEmpleados; }
+    public double getPresupuesto() { return presupuesto; }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getNombreDepartamento() {
-        return nombreDepartamento;
-    }
-
-    public void setNombreDepartamento(String nombreDepartamento) {
-        this.nombreDepartamento = nombreDepartamento;
-    }
-
-    public Departamento getDepartamentoPadre() {
-        return departamentoPadre;
-    }
-
+    
     public void setDepartamentoPadre(Departamento departamentoPadre) {
         this.departamentoPadre = departamentoPadre;
     }
 
-    public int getCantidadEmpleados() {
-        return cantidadEmpleados;
-    }
-
     public void setCantidadEmpleados(int cantidadEmpleados) {
-        this.cantidadEmpleados = cantidadEmpleados;
-    }
-
-    public double getPresupuesto() {
-        return presupuesto;
+        this.cantidadEmpleados = Math.max(0, cantidadEmpleados);
     }
 
     public void setPresupuesto(double presupuesto) {
-        this.presupuesto = presupuesto;
+        this.presupuesto = Math.max(0.0, presupuesto);
+    }
+
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Departamento that = (Departamento) obj;
+        return this.code == that.code;
     }
 
     @Override
-    public String toString() {
-        return "Departamento{" + "code=" + code + ", nombreDepartamento=" + nombreDepartamento + ", departamentoPadre=" + departamentoPadre + ", cantidadEmpleados=" + cantidadEmpleados + ", presupuesto=" + presupuesto + '}';
+    public int hashCode() {
+        return Objects.hash(code);
     }
+
   
-    
+    @Override
+    public String toString() {
+        return String.format(
+            "Departamento[code=%d, nombre=%s, padre=%s, empleados=%d, presupuesto=%.2f]",
+            code,
+            nombreDepartamento,
+            (departamentoPadre != null ? departamentoPadre.getNombreDepartamento() : "Ninguno"),
+            cantidadEmpleados,
+            presupuesto
+        );
+    }
+
+
+    public boolean tieneCodigo(int codigoBuscado) {
+        return this.code == codigoBuscado;
+    }
+
+    @Override
+    public int compareTo(Departamento otro) {
+         return Integer.compare(this.code, otro.code);
+    }
 }
