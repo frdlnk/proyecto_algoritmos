@@ -51,7 +51,6 @@ public class Menu {
                     break;
                     
                 case '4':
-                    JOptionPane.showMessageDialog(null, "Consultar departamentos");
                     consultarDepartamento.consultarDepartamento(loadDepartments.getArbolOrganizacional());
                     break;
 

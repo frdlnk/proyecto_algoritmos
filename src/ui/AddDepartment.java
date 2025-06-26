@@ -20,7 +20,7 @@ public class AddDepartment {
             if (nombre == null || nombre.trim().isEmpty()) {
                 return;
             }
-
+            
             // Validación simple
             if (nombre.contains(",")) {
                 JOptionPane.showMessageDialog(null, "El nombre no puede contener comas.");
