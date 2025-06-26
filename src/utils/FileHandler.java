@@ -8,6 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Clase para manejar la lectura y escritura de departamentos desde y hacia un archivo.
+ * 
+ * @author frdlnk
+ */
 public class FileHandler {
 
     private final String fileUri;
@@ -32,7 +37,6 @@ public class FileHandler {
                 int departamentoPadreCode = Integer.parseInt(parts[2].trim());
                 int cantidadEmpleados = Integer.parseInt(parts[3].trim());
                 double presupuesto = Double.parseDouble(parts[4].trim().replace(",", "").replace(" ", ""));
-
 
                 Departamento departamentoPadre = findDepartamentoByCode(departamentos, departamentoPadreCode);
 

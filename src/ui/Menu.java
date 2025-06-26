@@ -2,6 +2,13 @@ package ui;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que implementa el menú principal de la aplicación para gestión de departamentos.
+ * 
+ * Permite cargar departamentos, agregar, eliminar, consultar y mostrar la jerarquía mediante una interfaz gráfica simple.
+ * 
+ * @author frdlnk
+ */
 public class Menu {
 
     private static boolean salir = false;
@@ -11,6 +18,11 @@ public class Menu {
     private static final AddDepartment agregarDepartamento =  new AddDepartment();
     private static final ConsultarDepartamentos consultarDepartamento= new ConsultarDepartamentos();
     
+    /**
+     * Método principal para iniciar el menú interactivo.
+     * 
+     * @throws Exception si ocurre algún error inesperado durante la ejecución
+     */
     public static void startMenu() throws Exception {
         while (!salir) {
             String[] opciones = {
